@@ -12,65 +12,81 @@ import {
 import React from "react";
 
 const page = () => {
+  const handlePetFormSubmit = async (e) => {
+    e.preventDefault();
+    const formData = await new FormData(e.currentTarget);
+    const petData = Object.fromEntries(formData.entries());
+    console.log(petData);
+
+    const res = await fetch("http://localhost:5000/all-pets", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(petData),
+    });
+    if (!res.ok) {
+      throw new Error("Failed request");
+    }
+    const data = await res.json();
+    console.log(data);
+  };
   return (
     <div className="container mx-auto ">
       <h2 className="text-3xl font-bold px-6 py-4">Add A Pet : </h2>
       <form
         className="p-6 space-y-8 md:w-3xl w-xl"
-        // onSubmit={handleProductFormDataSubmit}
+        onSubmit={handlePetFormSubmit}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Destination Name */}
           <div className="md:col-span-2">
-            <TextField name="productName" isRequired className="text-gray-900">
-              <Label>Product Name</Label>
-              <Input placeholder="Silk Linen Shirt" className="rounded-2xl" />
+            <TextField name="PetName" isRequired className="text-gray-900">
+              <Label>Pet Name :</Label>
+              <Input placeholder="Bella" className="rounded-2xl" />
               <FieldError />
             </TextField>
           </div>
 
           {/* Country */}
-          {/* <TextField name="country" isRequired>
-            <Label>Country</Label>
+          <TextField name="location" isRequired>
+            <Label>Location</Label>
             <Input placeholder="Indonesia" className="rounded-2xl" />
             <FieldError />
-          </TextField> */}
+          </TextField>
+
           <div>
             <Select
-              name="category"
+              name="species"
               isRequired
               className="w-full"
-              placeholder="Select category"
+              placeholder="Select species"
             >
-              <Label>Category</Label>
+              <Label>Species</Label>
               <Select.Trigger className="rounded-2xl">
                 <Select.Value />
                 <Select.Indicator />
               </Select.Trigger>
               <Select.Popover>
                 <ListBox className="text-gray-800">
-                  <ListBox.Item id="Shirt" textValue="Shirt">
-                    Shirt
+                  <ListBox.Item id="Dog" textValue="Dog">
+                    Dog
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="T-Shirt" textValue="T-Shirt">
-                    T-Shirt
+                  <ListBox.Item id="Cat" textValue="Cat">
+                    Cat
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Jeans-Pants" textValue="Jeans-Pants">
-                    Jeans Pants
+                  <ListBox.Item id="Bird" textValue="Bird">
+                    Bird
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Gavadin-Pants" textValue="Gavadin-Pants">
-                    Gavadin Pants
+                  <ListBox.Item id="Monkey" textValue="Monkey">
+                    Monkey
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Trousers" textValue="Trousers">
-                    Trousers
-                    <ListBox.ItemIndicator />
-                  </ListBox.Item>
-                  <ListBox.Item id="Accessories" textValue="Accessories">
-                    Accessories
+                  <ListBox.Item id="Horse" textValue="Horse">
+                    Horse
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
                 </ListBox>
@@ -81,86 +97,166 @@ const page = () => {
           {/* Category - Updated Select Component */}
           <div>
             <Select
-              name="material"
+              name="breed"
               isRequired
               className="w-full"
-              placeholder="Select category"
+              placeholder="Select Breed"
             >
-              <Label>Material</Label>
+              <Label>Breed</Label>
               <Select.Trigger className="rounded-2xl">
                 <Select.Value />
                 <Select.Indicator />
               </Select.Trigger>
               <Select.Popover>
                 <ListBox className="text-gray-800">
-                  <ListBox.Item id="Merino-Wool" textValue="Merino-Wool">
-                    Merino Wool
+                  <ListBox.Item id="Labrador" textValue="Labrador">
+                    Labrador
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Pure-Silk" textValue="Pure-Silk">
-                    Pure Silk
+                  <ListBox.Item
+                    id="German-Shepherd"
+                    textValue="German Shepherd"
+                  >
+                    German Shepherd
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Cash-Mere" textValue="Cash-Mere">
-                    Cash Mere
+                  <ListBox.Item id="Bull-Dog" textValue="Bull Dog">
+                    Bull Dog
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Italian-Linen" textValue="Italian-Linen">
-                    Italian Linen
+                  <ListBox.Item id="Persian" textValue="Persian">
+                    Persian
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  {/* <ListBox.Item id="Cultural" textValue="Cultural">
-                    Cultural
+                  <ListBox.Item id="Bengal" textValue="Bengal">
+                    Bengal
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="Luxury" textValue="Luxury">
-                    Luxury
+                  <ListBox.Item id="Parrot" textValue="Parrot">
+                    Parrot
                     <ListBox.ItemIndicator />
-                  </ListBox.Item> */}
+                  </ListBox.Item>
+                  <ListBox.Item id="Cockaticl" textValue="Cockaticl">
+                    Cockaticl
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Arabian" textValue="Arabian">
+                    Arabian
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Morgan" textValue="Morgan">
+                    Morgan
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
                 </ListBox>
               </Select.Popover>
             </Select>
           </div>
 
           {/* Price */}
-          <TextField name="price" type="number" isRequired>
-            <Label>Price (Taka)</Label>
-            <Input type="number" placeholder="1299" className="rounded-2xl" />
+          <TextField name="age" type="number" isRequired>
+            <Label>Age (Years)</Label>
+            <Input type="number" placeholder="2 or 3" className="rounded-2xl" />
             <FieldError />
           </TextField>
 
           <div>
             <Select
-              name="size"
+              name="gender"
               isRequired
               className="w-full"
-              placeholder="Select Size"
+              placeholder="Select Gender"
             >
-              <Label>Size</Label>
+              <Label>Gender </Label>
               <Select.Trigger className="rounded-2xl">
                 <Select.Value />
                 <Select.Indicator />
               </Select.Trigger>
               <Select.Popover>
                 <ListBox className="text-gray-800">
-                  <ListBox.Item id="S" textValue="S">
-                    S
+                  <ListBox.Item id="Male" textValue="Male">
+                    Male
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="M" textValue="M">
-                    M
+                  <ListBox.Item id="Female" textValue="Female">
+                    Female
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="L" textValue="L">
-                    L
+                </ListBox>
+              </Select.Popover>
+            </Select>
+          </div>
+
+          <div>
+            <Select
+              name="health"
+              isRequired
+              className="w-full"
+              placeholder="Healthy"
+            >
+              <Label>Health Status </Label>
+              <Select.Trigger className="rounded-2xl">
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover>
+                <ListBox className="text-gray-800">
+                  <ListBox.Item id="Healthy" textValue="Healthy">
+                    Healthy
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="XL" textValue="XL">
-                    XL
+                  <ListBox.Item id="Sick" textValue="Sick">
+                    Sick
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
-                  <ListBox.Item id="XXL" textValue="XXL">
-                    XXL
+                  <ListBox.Item id="Injured" textValue="Injured">
+                    Injured
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Recovering" textValue="Recovering">
+                    Recovering
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Disable" textValue="Disable">
+                    Disable
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                </ListBox>
+              </Select.Popover>
+            </Select>
+          </div>
+
+          <div>
+            <Select
+              name="vaccination"
+              isRequired
+              className="w-full"
+              placeholder="Vaccinated"
+            >
+              <Label>Vaccination Status </Label>
+              <Select.Trigger className="rounded-2xl">
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover>
+                <ListBox className="text-gray-800">
+                  <ListBox.Item id="Vaccinated" textValue="Vaccinated">
+                    Vaccinated
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Not-Vaccinated" textValue="Not Vaccinated">
+                    Not Vaccinated
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item
+                    id="Partially-Vaccinated"
+                    textValue="Partially Vaccinated"
+                  >
+                    Partially Vaccinated
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="UnKnown" textValue="UnKnown">
+                    UnKnown
                     <ListBox.ItemIndicator />
                   </ListBox.Item>
                 </ListBox>
@@ -169,19 +265,10 @@ const page = () => {
           </div>
 
           {/* Duration */}
-          <div className="md:col-span-2">
-            <TextField name="color" type="text" isRequired>
-              <Label>Color</Label>
-              <Input placeholder="Navy Blue Color" className="rounded-2xl" />
-              <FieldError />
-            </TextField>
-          </div>
-
-          {/* Departure Date */}
-          <div className="md:col-span-2">
-            <TextField name="departureDate" type="date" isRequired>
-              <Label>Departure Date</Label>
-              <Input type="date" className="rounded-2xl" />
+          <div className="">
+            <TextField name="adoptionFee" type="number" isRequired>
+              <Label>Adoption Fee</Label>
+              <Input placeholder="20900" className="rounded-2xl" />
               <FieldError />
             </TextField>
           </div>
@@ -199,6 +286,14 @@ const page = () => {
             </TextField>
           </div>
 
+          {/* Owner Email */}
+          <div className="md:col-span-2">
+            <TextField name="departureDate" type="date" isRequired>
+              <Label>Departure Date</Label>
+              <Input type="date" className="rounded-2xl" />
+              <FieldError />
+            </TextField>
+          </div>
           {/* Description */}
           <div className="md:col-span-2">
             <TextField name="description" isRequired>

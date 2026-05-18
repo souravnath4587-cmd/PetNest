@@ -54,7 +54,7 @@ const Navbar = () => {
             </li>
 
             <li>
-              <Link href="/shop">All Pets</Link>
+              <Link href="/all-pets">All Pets</Link>
             </li>
           </ul>
         </div>
@@ -96,7 +96,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link href="/shop">All Pets </Link>
+                <Link href="/all-pets">All Pets </Link>
               </li>
 
               <li>
