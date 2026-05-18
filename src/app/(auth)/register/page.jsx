@@ -10,7 +10,7 @@ import {
 } from "@heroui/react";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { authClient } from "../lib/auth-client";
+import { authClient } from "../../lib/auth-client";
 import { redirect } from "next/navigation";
 
 const RegisterPage = () => {

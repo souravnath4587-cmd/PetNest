@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Description,
@@ -11,7 +12,6 @@ import {
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { authClient } from "../lib/auth-client";
 
 const LoginPage = () => {
   const onSubmit = async (e) => {
