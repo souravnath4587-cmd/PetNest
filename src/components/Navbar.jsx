@@ -60,12 +60,6 @@ const Navbar = () => {
 
         {/* Login */}
         <div className="hidden md:flex md:gap-4 items-center">
-          <button
-            onClick={() => setDark(!dark)}
-            className="px-4 py-2 mx-4 rounded-full border"
-          >
-            {dark ? "☀ Light" : "🌙 Dark"}
-          </button>
           {user ? (
             <div className="flex gap-2 items-center">
               <h2>
@@ -79,10 +73,16 @@ const Navbar = () => {
           ) : (
             <Link href="/login">Login</Link>
           )}
+          <button
+            onClick={() => setDark(!dark)}
+            className="px-4 py-2 mx-4 rounded-full border"
+          >
+            {dark ? "☀ Light" : "🌙 Dark"}
+          </button>
         </div>
 
         {/* Mobile Button */}
-        <button onClick={() => setOpen(!open)} className="md:hidden text-2xl">
+        <button onClick={() => setOpen(!open)} className="md:hidden text-xl">
           {open ? "✖" : "☰"}
         </button>
 

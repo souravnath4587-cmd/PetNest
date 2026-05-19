@@ -5,14 +5,13 @@ import Link from "next/link";
 import { MdLocationOn } from "react-icons/md";
 
 const PetCard = ({ pet }) => {
-  const { _id, PetName, location, breed, age, gender, imageUrl, adoptionFee } =
-    pet;
+  const { _id, PetName, location, age, gender, imageUrl } = pet;
 
   return (
     <div className="shadow-2xl rounded-xl  border-2">
       <div className=" overflow-hidden rounded-xl ">
         <Image
-          className="w-full h-80 md:h-60 object-cover"
+          className=" w-full h-60 object-cover"
           src={imageUrl}
           width={400}
           height={200}

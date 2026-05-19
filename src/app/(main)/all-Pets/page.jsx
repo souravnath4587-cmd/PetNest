@@ -3,7 +3,6 @@ import PetCard from "@/ui/PetCard";
 const AllPetsPage = async () => {
   const res = await fetch("http://localhost:5000/all-pets");
   const pets = await res.json();
-  console.log(pets);
 
   return (
     <div className="container mx-auto p-10 md:p-0">
