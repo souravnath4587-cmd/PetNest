@@ -10,8 +10,9 @@ import {
 } from "@heroui/react";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { authClient } from "../../lib/auth-client";
 import { redirect } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [password, setPassword] = useState("");
@@ -34,9 +35,9 @@ const RegisterPage = () => {
     console.log(res);
 
     if (error) {
-      alert(error.message);
+      toast.error(error.message);
     } else {
-      alert("successfully done..");
+      toast.success("successfully done..");
       redirect("/login");
     }
   };

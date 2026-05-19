@@ -12,8 +12,21 @@ import {
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  // Google Sign In
+  const handleGoogleSignIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    if (data) {
+      toast.success("Google Login Successfully done.");
+    } else {
+      toast.error("UnAuthorize..");
+    }
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -28,9 +41,9 @@ const LoginPage = () => {
       callbackURL: "/",
     });
     if (error) {
-      alert(error.message);
+      toast.error(error.message);
     } else {
-      alert("successfully done..");
+      toast.success("LogIn Completed Successfully..");
     }
   };
 
@@ -106,6 +119,7 @@ const LoginPage = () => {
           <Button
             className=" rounded-none w-full flex gap-4 font-bold"
             variant="outline"
+            onClick={handleGoogleSignIn}
           >
             <FcGoogle />
             Login With Google

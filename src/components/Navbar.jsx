@@ -19,7 +19,6 @@ import React, { useEffect, useState } from "react";
 const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
 
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
