@@ -1,5 +1,5 @@
-// "use client";
-
+import RequestModalPage from "@/ui/RequestModal";
+import { Button, Modal } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,13 +7,10 @@ const page = async () => {
   const res = await fetch(`http://localhost:5000/all-pets`);
   const petData = await res.json();
 
-  const totalListings = 9;
-  const availablePets = 8;
-  const adoptedPets = 5;
+  const totalListings = petData.length;
+  const availablePets = petData.filter((pet) => !pet.status).length;
+  const adoptedPets = petData.filter((pet) => pet.status === "approved").length;
 
-  // const availablePets = pets.filter((pet) => pet.status === "available").length;
-
-  // const adoptedPets = pets.filter((pet) => pet.status === "adopted").length;
   return (
     <div>
       <div className="space-y-8">
@@ -37,7 +34,6 @@ const page = async () => {
           {/* Total */}
           <div
             className="
-            bg-white
             rounded-3xl
             p-6
             shadow-sm
@@ -52,7 +48,6 @@ const page = async () => {
           {/* Available */}
           <div
             className="
-            bg-white
             rounded-3xl
             p-6
             shadow-sm
@@ -76,7 +71,6 @@ const page = async () => {
           {/* Adopted */}
           <div
             className="
-            bg-white
             rounded-3xl
             p-6
             shadow-sm
@@ -112,7 +106,7 @@ const page = async () => {
             <div
               key={pet._id}
               className="
-              bg-white
+              
               rounded-3xl
               overflow-hidden
               border
@@ -126,7 +120,7 @@ const page = async () => {
               <div className="relative h-64 w-full">
                 <Image
                   src={pet.imageUrl}
-                  alt={pet.petName}
+                  alt={pet.PetName}
                   // width={400}
                   // height={400}
                   fill
@@ -150,7 +144,7 @@ const page = async () => {
                     font-bold
                   "
                   >
-                    {pet.petName}
+                    {pet.PetName}
                   </h2>
 
                   <span
@@ -163,7 +157,7 @@ const page = async () => {
                     rounded-full
                   "
                   >
-                    {pet.status}
+                    {pet.status || "available"}
                   </span>
                 </div>
 
@@ -198,19 +192,17 @@ const page = async () => {
                 "
                 >
                   {/* Requests */}
-                  <button
-                    className="
-                    bg-black
-                    text-white
-                    rounded-2xl
-                    py-3
-                    font-medium
-                    hover:opacity-90
-                    transition
-                  "
-                  >
-                    Requests
-                  </button>
+                  <RequestModalPage
+                    id={pet._id}
+                    petName={pet.PetName}
+                    petId={pet.petId}
+                    userName={pet.userName}
+                    userEmail={pet.userEmail}
+                    pickupDate={pet.pickupDate}
+                    requestDate={pet.requestDate}
+                    status={pet.status}
+                    message={pet.message}
+                  />
 
                   {/* Edit */}
                   <Link href={`/dashboard/update-pet/${pet._id}`}>

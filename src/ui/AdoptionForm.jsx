@@ -1,6 +1,5 @@
 "use client";
 
-import { allPetsData } from "@/lib/allPetsdata";
 import { authClient } from "@/lib/auth-client";
 import { Spinner } from "@heroui/react";
 import { useRouter } from "next/navigation";
@@ -57,7 +56,6 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
         departureDate,
         description,
         ownerEmail,
-        // ...(selectedPetData || {}),
       };
 
       const myListingRes = await fetch(`http://localhost:5000/my-pets/${id}`, {
@@ -68,7 +66,6 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
         body: JSON.stringify(myListing),
       });
       const myListingData = await myListingRes.json().catch(() => null);
-      console.log(myListing);
 
       const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
         method: "POST",
@@ -78,7 +75,6 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
         body: JSON.stringify(adoptData),
       });
       const data = await res.json().catch(() => null);
-      console.log(data);
 
       if (!myListingRes.ok || !res.ok) {
         toast.error("Server error occurred");
