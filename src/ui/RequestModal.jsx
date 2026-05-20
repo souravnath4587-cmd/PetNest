@@ -49,6 +49,7 @@ const RequestModalPage = ({
                     bg-black
                     text-white
                     rounded-2xl
+                    w-full
                     py-3
                     font-medium
                     hover:opacity-90

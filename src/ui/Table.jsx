@@ -35,20 +35,30 @@ const TablePage = ({ adoptPets, setAdoptPets }) => {
                   <Table.Cell>{pet.requestDate}</Table.Cell>
                   <Table.Cell>{pet.pickupDate}</Table.Cell>
                   <Table.Cell>{pet.status}</Table.Cell>
-                  <Table.Cell className="flex gap-2">
-                    <Button className="rounded-none" variant="outline">
-                      <Link className="p-4" href={`/all-pets/${pet.petId}`}>
-                        view
-                      </Link>
-                    </Button>
-                    <Button
-                      className="rounded-none"
-                      variant="danger-soft"
-                      onClick={() => handleDelete(pet._id)}
-                    >
-                      Cancel
-                    </Button>
-                  </Table.Cell>
+                  {pet.status === "approved" || pet.status === "rejected" ? (
+                    <Table.Cell className="flex gap-2">
+                      <Button className="rounded-none" variant="outline">
+                        <Link className="p-4" href={`/all-pets/${pet.petId}`}>
+                          view
+                        </Link>
+                      </Button>
+                    </Table.Cell>
+                  ) : (
+                    <Table.Cell className="flex gap-2">
+                      <Button className="rounded-none" variant="outline">
+                        <Link className="p-4" href={`/all-pets/${pet.petId}`}>
+                          view
+                        </Link>
+                      </Button>
+                      <Button
+                        className="rounded-none"
+                        variant="danger-soft"
+                        onClick={() => handleDelete(pet._id)}
+                      >
+                        Cancel
+                      </Button>
+                    </Table.Cell>
+                  )}
                 </Table.Row>
               ))}
             </Table.Body>

@@ -1,15 +1,30 @@
+"use client";
+import ListingDeleteButtonPage from "@/ui/ListingDeleteButton";
 import RequestModalPage from "@/ui/RequestModal";
-import { Button, Modal } from "@heroui/react";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const page = async () => {
-  const res = await fetch(`http://localhost:5000/all-pets`);
-  const petData = await res.json();
+const page = () => {
+  const [filterPets, setFilterPets] = useState([]);
 
-  const totalListings = petData.length;
-  const availablePets = petData.filter((pet) => !pet.status).length;
-  const adoptedPets = petData.filter((pet) => pet.status === "approved").length;
+  useEffect(() => {
+    fetch("http://localhost:5000/all-pets")
+      .then((res) => res.json())
+      .then((data) => setFilterPets(data));
+  }, []);
+
+  // const res = await fetch(`http://localhost:5000/all-pets`);
+  // const petData = await res.json();
+
+  const totalListings = filterPets.length;
+  const availablePets = filterPets.filter((pet) => !pet.status).length;
+  const adoptedPets = filterPets.filter(
+    (pet) => pet.status === "approved",
+  ).length;
+
+  // const handleDeleted = (id) => {};
 
   return (
     <div>
@@ -102,7 +117,7 @@ const page = async () => {
           gap-6
         "
         >
-          {petData.map((pet) => (
+          {filterPets.map((pet) => (
             <div
               key={pet._id}
               className="
@@ -205,9 +220,8 @@ const page = async () => {
                   />
 
                   {/* Edit */}
-                  <Link href={`/dashboard/update-pet/${pet._id}`}>
-                    <button
-                      className="
+                  <Button
+                    className="
                       w-full
                       border
                       rounded-2xl
@@ -216,15 +230,13 @@ const page = async () => {
                       hover:bg-gray-100
                       transition
                     "
-                    >
-                      Edit
-                    </button>
-                  </Link>
+                  >
+                    Edit
+                  </Button>
 
                   {/* View */}
-                  <Link href={`/pets/${pet._id}`}>
-                    <Button
-                      className="
+                  <Button
+                    className="
                       w-full
                       bg-orange-500
                       text-white
@@ -234,25 +246,15 @@ const page = async () => {
                       hover:bg-orange-600
                       transition
                     "
-                    >
-                      <Link href={`/all-pets/${pet._id}`}>View</Link>
-                    </Button>
-                  </Link>
+                  >
+                    <Link href={`/all-pets/${pet._id}`}>View</Link>
+                  </Button>
 
                   {/* Delete */}
-                  <button
-                    className="
-                    bg-red-500
-                    text-white
-                    rounded-2xl
-                    py-3
-                    font-medium
-                    hover:bg-red-600
-                    transition
-                  "
-                  >
-                    Delete
-                  </button>
+                  <ListingDeleteButtonPage
+                    id={pet._id}
+                    setFilterPets={setFilterPets}
+                  />
                 </div>
               </div>
             </div>
