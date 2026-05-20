@@ -1,8 +1,11 @@
+import { allPetsData } from "@/lib/allPetsdata";
 import AdoptionForm from "@/ui/AdoptionForm";
 import Image from "next/image";
 
 const PetDetaisPage = async ({ params }) => {
   const { id } = await params;
+
+  const petsData = await allPetsData();
 
   const res = await fetch(`http://localhost:5000/all-pets/${id}`);
   const petData = await res.json();
@@ -48,7 +51,7 @@ const PetDetaisPage = async ({ params }) => {
             width={600}
             height={400}
           />
-          <div className="flex flex-row justify-between mt-5">
+          <div className="flex flex-row justify-between">
             <h1 className="text-4xl font-bold ">{PetName}</h1>
             <h1 className="text-3xl font-bold text-[#d4a574]">
               ${adoptionFee}
@@ -90,7 +93,12 @@ const PetDetaisPage = async ({ params }) => {
         </div>
 
         {/* Right Side  */}
-        <AdoptionForm id={id} PetName={PetName} adoptPets={adoptPets} />
+        <AdoptionForm
+          id={id}
+          petName={PetName}
+          adoptPets={adoptPets}
+          petsData={petsData}
+        />
 
         {/* </div> */}
       </div>

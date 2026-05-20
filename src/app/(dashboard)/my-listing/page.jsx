@@ -1,9 +1,272 @@
-"use client";
+// "use client";
 
-const page = () => {
+import Image from "next/image";
+import Link from "next/link";
+
+const page = async () => {
+  const res = await fetch(`http://localhost:5000/all-pets`);
+  const petData = await res.json();
+
+  const totalListings = 9;
+  const availablePets = 8;
+  const adoptedPets = 5;
+
+  // const availablePets = pets.filter((pet) => pet.status === "available").length;
+
+  // const adoptedPets = pets.filter((pet) => pet.status === "adopted").length;
   return (
     <div>
-      <p className="text-red-700">This is listing page</p>
+      <div className="space-y-8">
+        {/* Heading */}
+        <div className="my-4">
+          <h2 className="text-3xl font-bold">My Listings</h2>
+          <p className="text-gray-500">
+            Manage all your pets listings from here.{" "}
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div
+          className="
+          grid
+          grid-cols-1
+          md:grid-cols-3
+          gap-5
+        "
+        >
+          {/* Total */}
+          <div
+            className="
+            bg-white
+            rounded-3xl
+            p-6
+            shadow-sm
+            border
+          "
+          >
+            <h2 className="text-gray-500">Total Listings</h2>
+
+            <p className="text-4xl font-bold mt-3">{totalListings}</p>
+          </div>
+
+          {/* Available */}
+          <div
+            className="
+            bg-white
+            rounded-3xl
+            p-6
+            shadow-sm
+            border
+          "
+          >
+            <h2 className="text-gray-500">Available</h2>
+
+            <p
+              className="
+              text-4xl
+              font-bold
+              mt-3
+              text-green-600
+            "
+            >
+              {availablePets}
+            </p>
+          </div>
+
+          {/* Adopted */}
+          <div
+            className="
+            bg-white
+            rounded-3xl
+            p-6
+            shadow-sm
+            border
+          "
+          >
+            <h2 className="text-gray-500">Adopted</h2>
+
+            <p
+              className="
+              text-4xl
+              font-bold
+              mt-3
+              text-orange-500
+            "
+            >
+              {adoptedPets}
+            </p>
+          </div>
+        </div>
+
+        {/* Cards */}
+        <div
+          className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          xl:grid-cols-3
+          gap-6
+        "
+        >
+          {petData.map((pet) => (
+            <div
+              key={pet._id}
+              className="
+              bg-white
+              rounded-3xl
+              overflow-hidden
+              border
+              shadow-sm
+              hover:shadow-xl
+              transition
+              duration-300
+            "
+            >
+              {/* Image */}
+              <div className="relative h-64 w-full">
+                <Image
+                  src={pet.imageUrl}
+                  alt={pet.petName}
+                  // width={400}
+                  // height={400}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="p-5">
+                {/* Name */}
+                <div
+                  className="
+                  flex
+                  items-center
+                  justify-between
+                "
+                >
+                  <h2
+                    className="
+                    text-2xl
+                    font-bold
+                  "
+                  >
+                    {pet.petName}
+                  </h2>
+
+                  <span
+                    className="
+                    bg-orange-100
+                    text-orange-600
+                    text-sm
+                    px-3
+                    py-1
+                    rounded-full
+                  "
+                  >
+                    {pet.status}
+                  </span>
+                </div>
+
+                {/* Price */}
+                <p
+                  className="
+                  text-3xl
+                  font-bold
+                  mt-4
+                "
+                >
+                  ${pet.adoptionFee}
+                </p>
+
+                {/* Breed */}
+                <p
+                  className="
+                  text-gray-500
+                  mt-2
+                "
+                >
+                  {pet.breed} • {pet.species}
+                </p>
+
+                {/* Buttons */}
+                <div
+                  className="
+                  grid
+                  grid-cols-2
+                  gap-3
+                  mt-6
+                "
+                >
+                  {/* Requests */}
+                  <button
+                    className="
+                    bg-black
+                    text-white
+                    rounded-2xl
+                    py-3
+                    font-medium
+                    hover:opacity-90
+                    transition
+                  "
+                  >
+                    Requests
+                  </button>
+
+                  {/* Edit */}
+                  <Link href={`/dashboard/update-pet/${pet._id}`}>
+                    <button
+                      className="
+                      w-full
+                      border
+                      rounded-2xl
+                      py-3
+                      font-medium
+                      hover:bg-gray-100
+                      transition
+                    "
+                    >
+                      Edit
+                    </button>
+                  </Link>
+
+                  {/* View */}
+                  <Link href={`/pets/${pet._id}`}>
+                    <button
+                      className="
+                      w-full
+                      bg-orange-500
+                      text-white
+                      rounded-2xl
+                      py-3
+                      font-medium
+                      hover:bg-orange-600
+                      transition
+                    "
+                    >
+                      View
+                    </button>
+                  </Link>
+
+                  {/* Delete */}
+                  <button
+                    className="
+                    bg-red-500
+                    text-white
+                    rounded-2xl
+                    py-3
+                    font-medium
+                    hover:bg-red-600
+                    transition
+                  "
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,43 +1,95 @@
 "use client";
 
+import { allPetsData } from "@/lib/allPetsdata";
 import { authClient } from "@/lib/auth-client";
 import { Spinner } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const AdoptionForm = ({ PetName, id, adoptPets }) => {
-  const [loading, setLoading] = useState(false);
+const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const alreadyRequest = adoptPets.some((pet) => pet.petId === id);
   const adoptPet = adoptPets.filter((pet) => pet.petId == id)[0];
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
+  const selectedPetData = petsData.find((pet) => pet._id == id);
+
+  const {
+    location,
+    species,
+    breed,
+    age,
+    gender,
+    health,
+    vaccination,
+    adoptionFee,
+    imageUrl,
+    departureDate,
+    description,
+    ownerEmail,
+  } = selectedPetData;
 
   const handleAdopt = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const formData = new FormData(e.currentTarget);
-    const adoptData = {
-      ...Object.fromEntries(formData.entries()),
-      status: "pending",
-      petId: id,
-      requestDate: new Date().toISOString().split("T")[0],
-    };
-    const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(adoptData),
-    });
-    if (!res) {
-      toast.error("This server is not working");
-    } else {
+    try {
+      setLoading(true);
+      const formData = new FormData(e.currentTarget);
+      const adoptData = {
+        ...Object.fromEntries(formData.entries()),
+        status: "pending",
+        petId: id,
+        requestDate: new Date().toISOString().split("T")[0],
+      };
+      const myListing = {
+        ...adoptData,
+        location,
+        species,
+        breed,
+        age,
+        gender,
+        health,
+        vaccination,
+        adoptionFee,
+        imageUrl,
+        departureDate,
+        description,
+        ownerEmail,
+        // ...(selectedPetData || {}),
+      };
+
+      const myListingRes = await fetch(`http://localhost:5000/my-pets/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(myListing),
+      });
+      const myListingData = await myListingRes.json().catch(() => null);
+      console.log(myListing);
+
+      const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(adoptData),
+      });
+      const data = await res.json().catch(() => null);
+      console.log(data);
+
+      if (!myListingRes.ok || !res.ok) {
+        toast.error("Server error occurred");
+        return;
+      }
       toast.success("Successfully Done...");
       router.refresh();
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    } finally {
       setLoading(false);
     }
   };
@@ -80,7 +132,7 @@ const AdoptionForm = ({ PetName, id, adoptPets }) => {
               <input
                 type="text"
                 name="petName"
-                value={PetName || ""}
+                value={petName || ""}
                 readOnly
                 className="
                   w-full
