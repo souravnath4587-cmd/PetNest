@@ -223,7 +223,7 @@ const page = async () => {
 
                   {/* View */}
                   <Link href={`/pets/${pet._id}`}>
-                    <button
+                    <Button
                       className="
                       w-full
                       bg-orange-500
@@ -235,8 +235,8 @@ const page = async () => {
                       transition
                     "
                     >
-                      View
-                    </button>
+                      <Link href={`/all-pets/${pet._id}`}>View</Link>
+                    </Button>
                   </Link>
 
                   {/* Delete */}
