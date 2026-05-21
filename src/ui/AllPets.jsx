@@ -3,8 +3,32 @@
 import { FaSearch } from "react-icons/fa";
 import SortByType from "./SortByType";
 import PetCard from "./PetCard";
+import { useEffect, useState } from "react";
 
 const AllPetsPage = ({ pets }) => {
+  const [filterPets, setFilterPets] = useState([]);
+
+  useEffect(() => {
+    setFilterPets(pets);
+  }, [pets]);
+
+  const handleSearch = async (value) => {
+    console.log(value);
+    const res = await fetch(`http://localhost:5000/all-pets?search=${value}`);
+    const data = await res.json();
+    setFilterPets(data);
+  };
+
+  const handleSortBySpecies = async (value) => {
+    console.log(value);
+
+    const res = await fetch(
+      `http://localhost:5000/all-pets?sortBySpecies=${value}`,
+    );
+    const data = await res.json();
+    setFilterPets(data);
+  };
+
   return (
     <div className="container mx-auto ">
       <div className="flex flex-row justify-between items-center my-6">
@@ -14,7 +38,7 @@ const AllPetsPage = ({ pets }) => {
         </div>
         <div className="flex flex-row items-center gap-4">
           <div className="shadow-xl p-4 relative">
-            <h3 className="font-bold">Search Here</h3>
+            <h3 className="font-bold">Search Here : </h3>
             <input
               type="text"
               placeholder="Search pets by name"
@@ -30,6 +54,7 @@ const AllPetsPage = ({ pets }) => {
                 border-gray-200
                 outline-none
               "
+              onChange={(e) => handleSearch(e.target.value)}
             />
 
             <FaSearch
@@ -38,13 +63,13 @@ const AllPetsPage = ({ pets }) => {
             />
           </div>
           <div className="shadow-xl p-4">
-            <h3 className="font-bold">Search Here</h3>
-            <SortByType />
+            <h3 className="font-bold">Sort By Species : </h3>
+            <SortByType handleSortBySpecies={handleSortBySpecies} />
           </div>
         </div>
       </div>
       <div className="grid  md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
-        {pets.map((pet) => (
+        {filterPets.map((pet) => (
           <PetCard key={pet._id} pet={pet} />
         ))}
       </div>
