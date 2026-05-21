@@ -11,7 +11,6 @@ const FeaturePage = async () => {
           className="
         text-5xl
         font-black
-        text-gray-900
       "
         >
           Featured Pets
@@ -21,7 +20,6 @@ const FeaturePage = async () => {
           className="
         mt-5
         text-lg
-        text-gray-600
         leading-8
       "
         >
