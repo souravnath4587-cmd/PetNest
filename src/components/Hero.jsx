@@ -55,7 +55,7 @@ const BannerPage = () => {
     <section
       className="
         min-h-screen
-        bg-gradient-to-r
+        bg-linear-to-r
         from-orange-100
         via-white
         to-cyan-100
@@ -148,8 +148,8 @@ const BannerPage = () => {
           <div
             className="
               absolute
-              w-[350px]
-              h-[350px]
+              w-[350]
+              h-[350]
               bg-orange-300/40
               rounded-full
               blur-3xl

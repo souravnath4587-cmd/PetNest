@@ -16,8 +16,8 @@ const RequestModalPage = ({
   message,
 }) => {
   const router = useRouter();
+
   const handleStatusChange = async (id, petId, status) => {
-    // console.log("Status is changed..", userId, status);
     const adoptRes = await fetch(`http://localhost:5000/my-request/${petId}`, {
       method: "PATCH",
       headers: {
