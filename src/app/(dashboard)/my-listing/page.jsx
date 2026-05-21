@@ -220,8 +220,9 @@ const page = () => {
                   />
 
                   {/* Edit */}
-                  <Button
-                    className="
+                  <Link href={`/my-listing/${pet._id}`}>
+                    <Button
+                      className="
                       w-full
                       border
                       rounded-2xl
@@ -230,9 +231,10 @@ const page = () => {
                       hover:bg-gray-100
                       transition
                     "
-                  >
-                    Edit
-                  </Button>
+                    >
+                      Edit
+                    </Button>
+                  </Link>
 
                   {/* View */}
                   <Button
