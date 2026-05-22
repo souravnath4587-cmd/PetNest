@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import {
   FieldError,
   Input,
@@ -9,7 +10,9 @@ import {
   TextArea,
   Button,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
 import React from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const handlePetFormSubmit = async (e) => {
@@ -18,10 +21,13 @@ const page = () => {
     const petData = Object.fromEntries(formData.entries());
     console.log(petData);
 
+    const { data: tokenData } = await authClient.token();
+
     const res = await fetch("http://localhost:5000/all-pets", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(petData),
     });
@@ -29,7 +35,12 @@ const page = () => {
       throw new Error("Failed request");
     }
     const data = await res.json();
-    console.log(data);
+    if (!data) {
+      toast.error(error.message);
+    } else {
+      toast.success("Successfully add a pet on all-pets page.");
+      redirect("/all-pets");
+    }
   };
   return (
     <div className="container mx-auto ">

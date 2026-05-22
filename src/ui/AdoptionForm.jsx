@@ -2,6 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Spinner } from "@heroui/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -67,10 +68,13 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
       });
       const myListingData = await myListingRes.json().catch(() => null);
 
+      const { data: tokenData } = await authClient.token();
+
       const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
         },
         body: JSON.stringify(adoptData),
       });
@@ -106,6 +110,12 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
             <p className="mt-2 text-gray-500">
               Your adoption request has been sent successfully.
             </p>
+            <Link
+              className="text-blue-600 border-b-2 border-blue-600"
+              href={"/my-request"}
+            >
+              Check Your Request
+            </Link>
           </div>
         </div>
       ) : (
