@@ -1,13 +1,23 @@
 import { allPetsData } from "@/lib/allPetsdata";
+import { auth } from "@/lib/auth";
 import AdoptionForm from "@/ui/AdoptionForm";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 const PetDetaisPage = async ({ params }) => {
   const { id } = await params;
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
 
   const petsData = await allPetsData();
 
-  const res = await fetch(`http://localhost:5000/all-pets/${id}`);
+  const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const petData = await res.json();
 
   const data = await fetch(`http://localhost:5000/my-request`);

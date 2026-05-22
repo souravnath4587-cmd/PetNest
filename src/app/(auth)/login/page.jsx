@@ -38,9 +38,10 @@ const LoginPage = () => {
       email: email,
       password: password,
       rememberMe: true,
-      callbackURL: "/",
+      callbackURL: "/all-pets/",
     });
-    if (error) {
+
+    if (!res) {
       toast.error(error.message);
     } else {
       toast.success("LogIn Completed Successfully..");
