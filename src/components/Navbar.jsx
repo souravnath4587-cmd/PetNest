@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <div className="border border-white/5 shadow">
-      <nav className="container mx-auto flex  justify-between items-center uppercase py-4 px-4 md:px-0 relative">
+      <nav className="container mx-auto flex  justify-between items-center uppercase py-4 px-4 md:px-0 relative z-10">
         {/* Logo */}
         <div>
           <h2 className="text-2xl font-bold uppercase">

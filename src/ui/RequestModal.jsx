@@ -18,26 +18,32 @@ const RequestModalPage = ({
   const router = useRouter();
 
   const handleStatusChange = async (id, petId, status) => {
-    const adoptRes = await fetch(`http://localhost:5000/my-request/${petId}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
+    const adoptRes = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/my-request/${petId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          status,
+        }),
       },
-      body: JSON.stringify({
-        status,
-      }),
-    });
+    );
     const adoptData = await adoptRes.json();
 
-    const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          status,
+        }),
       },
-      body: JSON.stringify({
-        status,
-      }),
-    });
+    );
     const data = await res.json();
     router.refresh();
   };

@@ -13,14 +13,17 @@ const PetDetaisPage = async ({ params }) => {
 
   const petsData = await allPetsData();
 
-  const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
   const petData = await res.json();
 
-  const data = await fetch(`http://localhost:5000/my-request`);
+  const data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-request`);
   const adoptPets = await data.json();
   console.log(adoptPets);
 

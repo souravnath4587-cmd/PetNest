@@ -59,25 +59,31 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
         ownerEmail,
       };
 
-      const myListingRes = await fetch(`http://localhost:5000/my-pets/${id}`, {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
+      const myListingRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/my-pets/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(myListing),
         },
-        body: JSON.stringify(myListing),
-      });
+      );
       const myListingData = await myListingRes.json().catch(() => null);
 
       const { data: tokenData } = await authClient.token();
 
-      const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${tokenData?.token}`,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+          body: JSON.stringify(adoptData),
         },
-        body: JSON.stringify(adoptData),
-      });
+      );
       const data = await res.json().catch(() => null);
 
       if (!myListingRes.ok || !res.ok) {

@@ -6,7 +6,7 @@ const page = () => {
   const [adoptPets, setAdoptPets] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/my-request")
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-request`)
       .then((res) => res.json())
       .then((data) => setAdoptPets(data));
   }, []);

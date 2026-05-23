@@ -21,13 +21,16 @@ const FormForUpdatePage = ({ petData }) => {
     const updatePetData = Object.fromEntries(formData.entries());
     console.log(updatePetData);
 
-    const res = await fetch(`http://localhost:5000/all-pets/${petData?._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets/${petData?._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatePetData),
       },
-      body: JSON.stringify(updatePetData),
-    });
+    );
     const data = await res.json();
     if (!data) {
       toast.error("UnAuthorize...");

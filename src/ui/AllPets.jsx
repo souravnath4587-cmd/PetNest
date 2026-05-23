@@ -39,7 +39,7 @@ const AllPetsPage = ({ pets }) => {
           <p className="text-gray-500">Find Your favorite Pet</p>
         </div>
         <div className="flex flex-row items-center gap-4">
-          <div className="shadow-xl p-4 relative">
+          <div className="p-4 relative z-9">
             <h3 className="font-bold">Search Here : </h3>
             <input
               type="text"
@@ -64,7 +64,7 @@ const AllPetsPage = ({ pets }) => {
               className="absolute top-13 right-6 text-gray-500"
             />
           </div>
-          <div className="shadow-xl p-4">
+          <div className="p-4">
             <h3 className="font-bold">Sort By Species : </h3>
             <SortByType handleSortBySpecies={handleSortBySpecies} />
           </div>
