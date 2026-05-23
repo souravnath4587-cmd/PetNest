@@ -27,7 +27,7 @@ const page = () => {
     <div>
       <div className="space-y-8">
         {/* Heading */}
-        <div className="my-4">
+        <div className="my-4  text-center sm:text-start">
           <h2 className="text-3xl font-bold">My Listings</h2>
           <p className="text-gray-500">
             Manage all your pets listings from here.{" "}
@@ -41,12 +41,15 @@ const page = () => {
           grid-cols-1
           md:grid-cols-3
           gap-5
+          mx-6
+          sm:mx-0
         "
         >
           {/* Total */}
           <div
             className="
             rounded-3xl
+            text-center
             p-6
             shadow-sm
             border
@@ -61,6 +64,7 @@ const page = () => {
           <div
             className="
             rounded-3xl
+             text-center
             p-6
             shadow-sm
             border
@@ -71,6 +75,7 @@ const page = () => {
             <p
               className="
               text-4xl
+             
               font-bold
               mt-3
               text-green-600
@@ -85,6 +90,7 @@ const page = () => {
             className="
             rounded-3xl
             p-6
+            text-center
             shadow-sm
             border
           "
@@ -112,6 +118,8 @@ const page = () => {
           md:grid-cols-2
           xl:grid-cols-3
           gap-6
+          mx-6
+          sm:mx-0
         "
         >
           {filterPets.map((pet) => (

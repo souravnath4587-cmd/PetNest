@@ -23,7 +23,7 @@ const page = async ({ params }) => {
   return (
     <div>
       {/* Heading */}
-      <div className="my-4">
+      <div className="my-4 text-center sm:text-start mb-6">
         <h2 className="text-3xl font-bold">Update Data</h2>
         <p className="text-gray-500">
           Manage your pet data updated from here.{" "}

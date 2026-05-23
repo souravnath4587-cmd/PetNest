@@ -40,7 +40,7 @@ const FormForUpdatePage = ({ petData }) => {
     }
   };
   return (
-    <div className="shadow-xl p-4 border-2 border-orange/5">
+    <div className="shadow-xl m-4 border-2 border-orange/5">
       <form className="p-6 space-y-8 w-full " onSubmit={handlePetFormUpdated}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Destination Name */}

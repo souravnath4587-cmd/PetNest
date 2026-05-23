@@ -33,7 +33,7 @@ const Navbar = () => {
         <div className="flex gap-2 items-center">
           <Image src={logo} alt="website logo" width={60} height={60}></Image>
           <h2 className="text-2xl font-bold uppercase">
-            <Link href={"/"}>
+            <Link href="/">
               Pet<span className="text-[#d4a574]">Nest</span>
             </Link>
           </h2>
