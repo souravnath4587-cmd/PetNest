@@ -14,7 +14,9 @@ const AllPetsPage = ({ pets }) => {
 
   const handleSearch = async (value) => {
     console.log(value);
-    const res = await fetch(`http://localhost:5000/all-pets?search=${value}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets?search=${value}`,
+    );
     const data = await res.json();
     setFilterPets(data);
   };
@@ -23,7 +25,7 @@ const AllPetsPage = ({ pets }) => {
     console.log(value);
 
     const res = await fetch(
-      `http://localhost:5000/all-pets?sortBySpecies=${value}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets?sortBySpecies=${value}`,
     );
     const data = await res.json();
     setFilterPets(data);

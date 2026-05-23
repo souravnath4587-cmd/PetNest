@@ -1,4 +1,4 @@
-import { AlertDialog, Button, Table } from "@heroui/react";
+import { Button, Table } from "@heroui/react";
 import Link from "next/link";
 
 const TablePage = ({ adoptPets, setAdoptPets }) => {
@@ -6,9 +6,12 @@ const TablePage = ({ adoptPets, setAdoptPets }) => {
     const confirmDelete = confirm("Are you sure you want to delete?");
 
     if (!confirmDelete) return;
-    const res = await fetch(`http://localhost:5000/my-request/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/my-request/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
     const data = await res.json();
     if (data.deletedCount > 0) {
       // remove from UI instantly

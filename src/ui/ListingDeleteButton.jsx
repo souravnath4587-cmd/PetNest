@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@heroui/react";
-import React from "react";
 
 const ListingDeleteButtonPage = ({ id, setFilterPets }) => {
   const handleDeleted = async (id) => {
@@ -8,9 +7,12 @@ const ListingDeleteButtonPage = ({ id, setFilterPets }) => {
 
     const confirmDelete = confirm("Are you sure to delete form listing item.");
     if (!confirmDelete) return;
-    const res = await fetch(`http://localhost:5000/all-pets/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
     const data = await res.json();
     console.log(data);
 

@@ -10,13 +10,10 @@ const page = () => {
   const [filterPets, setFilterPets] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/all-pets")
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets`)
       .then((res) => res.json())
       .then((data) => setFilterPets(data));
   }, []);
-
-  // const res = await fetch(`http://localhost:5000/all-pets`);
-  // const petData = await res.json();
 
   const totalListings = filterPets.length;
   const availablePets = filterPets.filter((pet) => !pet.status).length;

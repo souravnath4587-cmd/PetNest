@@ -11,7 +11,6 @@ import {
   Button,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
-import React from "react";
 import { toast } from "react-toastify";
 
 const page = () => {
@@ -23,7 +22,7 @@ const page = () => {
 
     const { data: tokenData } = await authClient.token();
 
-    const res = await fetch("http://localhost:5000/all-pets", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

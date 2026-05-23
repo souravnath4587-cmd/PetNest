@@ -1,9 +1,8 @@
 import FeatureCardPage from "@/ui/FeatureCard";
 
 const FeaturePage = async () => {
-  const res = await fetch(`http://localhost:5000/feature`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/feature`);
   const petData = await res.json();
-  console.log(petData);
 
   return (
     <section className="py-20">

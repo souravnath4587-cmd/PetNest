@@ -2,19 +2,8 @@
 
 import { authClient } from "@/lib/auth-client";
 import Profile from "@/ui/Profile";
-import { Button } from "@heroui/react";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
-// import Profile from "@/app/ui/Profile";
-
-// import {
-//   FloppyDisk,
-//   FolderOpen,
-//   SquarePlus,
-//   TrashBin,
-// } from "@gravity-ui/icons";
 
 const Navbar = () => {
   const { data: session } = authClient.useSession();
