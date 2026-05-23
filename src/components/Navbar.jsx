@@ -4,6 +4,8 @@ import { authClient } from "@/lib/auth-client";
 import Profile from "@/ui/Profile";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import logo from "../assets/petNestLogo.png";
+import Image from "next/image";
 
 const Navbar = () => {
   const { data: session } = authClient.useSession();
@@ -28,9 +30,12 @@ const Navbar = () => {
     <div className="border border-white/5 shadow">
       <nav className="container mx-auto flex  justify-between items-center uppercase py-4 px-4 md:px-0 relative z-10">
         {/* Logo */}
-        <div>
+        <div className="flex gap-2 items-center">
+          <Image src={logo} alt="website logo" width={60} height={60}></Image>
           <h2 className="text-2xl font-bold uppercase">
-            Pet<span className="text-[#d4a574]">Nest</span>
+            <Link href={"/"}>
+              Pet<span className="text-[#d4a574]">Nest</span>
+            </Link>
           </h2>
         </div>
 

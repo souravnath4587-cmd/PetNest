@@ -32,9 +32,9 @@ const AllPetsPage = ({ pets }) => {
   };
 
   return (
-    <div className="container mx-auto ">
-      <div className="flex flex-row justify-between items-center my-6">
-        <div className="my-4">
+    <div className="container mx-auto my-10">
+      <div className="flex md:flex-row flex-col justify-between items-center my-4">
+        <div className="my-4 text-center md:text-start">
           <h2 className="text-3xl font-bold">Browse All Pets</h2>
           <p className="text-gray-500">Find Your favorite Pet</p>
         </div>
@@ -70,7 +70,7 @@ const AllPetsPage = ({ pets }) => {
           </div>
         </div>
       </div>
-      <div className="grid  md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+      <div className="grid  md:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:gap-4 gap-8 p-4  sm:p-0">
         {filterPets.map((pet) => (
           <PetCard key={pet._id} pet={pet} />
         ))}

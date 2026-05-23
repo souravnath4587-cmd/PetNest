@@ -8,17 +8,17 @@ const PetCard = ({ pet }) => {
   const { _id, PetName, location, age, gender, imageUrl } = pet;
 
   return (
-    <div className="shadow-2xl rounded-xl  border-2">
+    <div className="shadow-2xl rounded-t-xl  border-2">
       <div className=" overflow-hidden rounded-xl ">
         <Image
           className=" w-full h-60 object-cover"
           src={imageUrl}
-          width={400}
+          width={350}
           height={200}
           alt={`${PetName} image`}
         ></Image>
       </div>
-      <div className="cardContent space-y-2 border-b-2 p-4 border-gray-50">
+      <div className="cardContent space-y-2 border-b-2 p-4 h-40 border-gray-50">
         <h4 className="text-2xl font-bold"> {PetName}</h4>
         <p className="text-gray-400">
           {PetName} - age is {age} Years - {gender}
@@ -27,15 +27,14 @@ const PetCard = ({ pet }) => {
           <MdLocationOn /> {location}{" "}
         </p>
       </div>
-      <div className="flex items-center py-2 justify-around bg-gray-800">
-        <Button
-          className="rounded-none px-8 py-4 bg-[#c19468]"
-          variant="outline"
-        >
+      <div className="flex items-center gap-6 py-2 justify-around bg-gray-800 p-4">
+        <Button className="rounded-none w-full bg-[#c19468]" variant="outline">
           <Link href={`/all-pets/${_id}`}>Pet Details</Link>
         </Button>
-        <Button className="rounded-none px-8 py-4" variant="danger-soft">
+        <Button className="rounded-none w-full " variant="danger-soft">
+          {/* <Link href={`/all-pets/${_id}`}> */}
           Adopt Now
+          {/* </Link> */}
         </Button>
       </div>
     </div>

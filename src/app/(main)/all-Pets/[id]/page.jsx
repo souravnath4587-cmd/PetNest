@@ -43,26 +43,26 @@ const PetDetaisPage = async ({ params }) => {
   } = petData;
 
   return (
-    <div className="container mx-auto mb-10">
-      <div className="my-4">
+    <div className="container mx-auto my-6">
+      <div className="my-6 text-center ">
         <h2 className="text-3xl font-bold">About This Pet</h2>
         <p className="text-gray-500">Find Your favorite Pet</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-10">
         {/* LEFT SIDE */}
-        <div>
+        <div className="w-[400] sm:w-[450] mx-auto">
           <Image
             src={imageUrl}
             alt={PetName}
             className="
               w-full
               object-scale-down
-              h-[500]
+              h-[400]
               rounded-2xl
             "
             width={600}
-            height={400}
+            height={300}
           />
           <div className="flex flex-row justify-between">
             <h1 className="text-4xl font-bold ">{PetName}</h1>
