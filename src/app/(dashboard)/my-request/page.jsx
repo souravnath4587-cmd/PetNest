@@ -21,28 +21,28 @@ const page = () => {
   ).length;
 
   return (
-    <div className="">
-      <div className="mx-8 my-4">
+    <div className="my-4">
+      <div className="flex flex-col text-center mb-8">
         <h2 className="text-3xl font-bold">All Adoption Request</h2>
         <p className="text-gray-500">
           All adoption request is here. You can see all information.{" "}
         </p>
       </div>
       <div>
-        <div className="flex flex-row justify-around items-center">
-          <div className="flex items-center py-4 px-6 border-2 border-white/5">
+        <div className="flex flex-row flex-wrap justify-around items-center text-start border-2 rounded-xl mx-8">
+          <div className="flex items-center gap-4 p-4 ">
             <h2 className="text-xl font-bold">Total Request : </h2>
             <p className="font-bold text-2xl"> {allRequest}</p>
           </div>
-          <div className="flex items-center py-4 px-6 border-2 border-white/5">
+          <div className="flex items-center gap-4 p-4 ">
             <h2 className="text-xl font-bold">Pending : </h2>
             <p className="font-bold text-2xl"> {allPending} </p>
           </div>
-          <div className="flex items-center py-4 px-6 border-2 border-white/5">
+          <div className="flex items-center gap-4 p-4 ">
             <h2 className="text-xl font-bold">Approved : </h2>
             <p className="font-bold text-2xl"> {allApproved} </p>
           </div>
-          <div className="flex items-center py-4 px-6 border-2 border-white/5">
+          <div className="flex items-center gap-4 p-4 ">
             <h2 className="text-xl font-bold">Rejected : </h2>
             <p className="font-bold text-2xl"> {allRejected} </p>
           </div>
