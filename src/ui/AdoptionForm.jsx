@@ -103,7 +103,10 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
     <>
       {loading ? (
         <div className="flex justify-center gap-4">
-          <Spinner size="xl" />
+          <Spinner size="xl" color="warning" />
+          <span className="text-md text-muted">
+            Adoption From Submitting...
+          </span>
         </div>
       ) : alreadyRequest ? (
         <div className="flex justify-center items-center h-[200] p-5 rounded-2xl text-center ">

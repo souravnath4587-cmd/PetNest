@@ -1,19 +1,32 @@
 "use client";
 import ListingDeleteButtonPage from "@/ui/ListingDeleteButton";
 import RequestModalPage from "@/ui/RequestModal";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const page = () => {
+  const [loading, setLoading] = useState(true);
   const [filterPets, setFilterPets] = useState([]);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/all-pets`)
       .then((res) => res.json())
-      .then((data) => setFilterPets(data));
+      .then((data) => {
+        setFilterPets(data);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center gap-2 mt-10">
+        <Spinner size="xl" color="warning" />
+        <span className="text-md text-muted">Data is loading...</span>
+      </div>
+    );
+  }
 
   const totalListings = filterPets.length;
   const availablePets = filterPets.filter((pet) => !pet.status).length;

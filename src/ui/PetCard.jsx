@@ -42,7 +42,7 @@ const PetCard = ({ pet }) => {
       </div>
       <div className="flex items-center gap-6 py-2 justify-around bg-gray-800 p-4">
         <Button className="rounded-none w-full bg-[#c19468]" variant="outline">
-          <Link href={`/all-pets/${_id}`}>Pet Details</Link>
+          <Link href={`/all-pets/${_id}?name=${PetName}`}>View Details</Link>
         </Button>
         <Button
           className="rounded-none w-full "
