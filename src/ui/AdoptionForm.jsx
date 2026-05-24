@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import PetOwnerPage from "./PetOwner";
 
 const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
   const router = useRouter();
@@ -99,147 +100,154 @@ const AdoptionForm = ({ petName, id, adoptPets, petsData }) => {
       setLoading(false);
     }
   };
+
   return (
     <>
-      {loading ? (
-        <div className="flex justify-center gap-4">
-          <Spinner size="xl" color="warning" />
-          <span className="text-md text-muted">
-            Adoption From Submitting...
-          </span>
-        </div>
-      ) : alreadyRequest ? (
-        <div className="flex justify-center items-center h-[200] p-5 rounded-2xl text-center ">
-          <div className=" ">
-            <h3 className="text-xl font-bold">Request Submitted 🐾</h3>
-            <h4>
-              {adoptPet.petName} is{" "}
-              <span className="text-red-500">{adoptPet.status}</span>
-            </h4>
-            <p className="mt-2 text-gray-500">
-              Your adoption request has been sent successfully.
-            </p>
-            <Link
-              className="text-blue-600 border-b-2 border-blue-600"
-              href={"/my-request"}
-            >
-              Check Your Request
-            </Link>
-          </div>
-        </div>
+      {ownerEmail === user?.email ? (
+        <PetOwnerPage />
       ) : (
-        <div
-          className="
+        <div>
+          {loading ? (
+            <div className="flex justify-center gap-4">
+              <Spinner size="xl" color="warning" />
+              <span className="text-md text-muted">
+                Adoption From Submitting...
+              </span>
+            </div>
+          ) : alreadyRequest ? (
+            <div className="flex justify-center items-center h-[200] p-5 rounded-2xl text-center ">
+              <div className=" ">
+                <h3 className="text-xl font-bold">Request Submitted 🐾</h3>
+                <h4>
+                  {adoptPet.petName} is{" "}
+                  <span className="text-red-500">{adoptPet.status}</span>
+                </h4>
+                <p className="mt-2 text-gray-500">
+                  Your adoption request has been sent successfully.
+                </p>
+                <Link
+                  className="text-blue-600 border-b-2 border-blue-600"
+                  href={"/my-request"}
+                >
+                  Check Your Request
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div
+              className="
             border
             rounded-2xl
             p-6
             shadow-lg
             h-fit
           "
-        >
-          <h2 className="text-3xl font-bold mb-6">Adoption Form</h2>
+            >
+              <h2 className="text-3xl font-bold mb-6">Adoption Form</h2>
 
-          <form className="space-y-2" onSubmit={handleAdopt}>
-            {/* Pet Name */}
-            <div>
-              <label className="block mb-2">Pet Name</label>
+              <form className="space-y-2" onSubmit={handleAdopt}>
+                {/* Pet Name */}
+                <div>
+                  <label className="block mb-2">Pet Name</label>
 
-              <input
-                type="text"
-                name="petName"
-                value={petName || ""}
-                readOnly
-                className="
+                  <input
+                    type="text"
+                    name="petName"
+                    value={petName || ""}
+                    readOnly
+                    className="
                   w-full
                   border
                   p-2
                   rounded-xl
                 "
-              />
-            </div>
+                  />
+                </div>
 
-            {/* User Name */}
-            <div>
-              <label className="block mb-2">User Name</label>
+                {/* User Name */}
+                <div>
+                  <label className="block mb-2">User Name</label>
 
-              <input
-                type="text"
-                name="userName"
-                value={user?.name}
-                readOnly
-                className="
+                  <input
+                    type="text"
+                    name="userName"
+                    value={user?.name}
+                    readOnly
+                    className="
                   w-full
                   border
                   p-3
                   rounded-xl
                 "
-              />
-            </div>
+                  />
+                </div>
 
-            {/* User Email */}
-            <div>
-              <label className="block mb-2">User Email</label>
+                {/* User Email */}
+                <div>
+                  <label className="block mb-2">User Email</label>
 
-              <input
-                type="email"
-                name="userEmail"
-                value={user?.email}
-                readOnly
-                className="
+                  <input
+                    type="email"
+                    name="userEmail"
+                    value={user?.email}
+                    readOnly
+                    className="
                   w-full
                   border
                   p-3
                   rounded-xl
                 "
-              />
-            </div>
+                  />
+                </div>
 
-            {/* Pickup Date */}
-            <div>
-              <label className="block mb-2">Pickup Date</label>
+                {/* Pickup Date */}
+                <div>
+                  <label className="block mb-2">Pickup Date</label>
 
-              <input
-                type="date"
-                name="pickupDate"
-                required
-                className="
+                  <input
+                    type="date"
+                    name="pickupDate"
+                    required
+                    className="
                   w-full
                   border
                   p-3
                   rounded-xl
                 "
-              />
-            </div>
+                  />
+                </div>
 
-            {/* Message */}
-            <div>
-              <label className="block mb-2">Message</label>
+                {/* Message */}
+                <div>
+                  <label className="block mb-2">Message</label>
 
-              <textarea
-                name="message"
-                rows="5"
-                placeholder="Write why you want to adopt..."
-                className="
+                  <textarea
+                    name="message"
+                    rows="5"
+                    placeholder="Write why you want to adopt..."
+                    className="
                   w-full
                   border
                   p-3
                   rounded-xl
                 "
-              />
-            </div>
+                  />
+                </div>
 
-            <button
-              className="
+                <button
+                  className="
                 w-full
                 bg-black
                 text-white
                 py-3
                 rounded-xl
               "
-            >
-              {loading ? "Submitting..." : "Adopt"}
-            </button>
-          </form>
+                >
+                  {loading ? "Submitting..." : "Adopt"}
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       )}
     </>

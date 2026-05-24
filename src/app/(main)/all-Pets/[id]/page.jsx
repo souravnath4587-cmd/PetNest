@@ -25,12 +25,11 @@ const PetDetaisPage = async ({ params }) => {
 
   const data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-request`);
   const adoptPets = await data.json();
-  console.log(adoptPets);
 
   const {
     imageUrl,
     description,
-    departureDate,
+    ownerEmail,
     adoptionFee,
     vaccination,
     health,
@@ -106,8 +105,10 @@ const PetDetaisPage = async ({ params }) => {
         </div>
 
         {/* Right Side  */}
+
         <AdoptionForm
           id={id}
+          ownerEmail={ownerEmail}
           petName={PetName}
           adoptPets={adoptPets}
           petsData={petsData}
