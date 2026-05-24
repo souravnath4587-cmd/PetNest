@@ -72,7 +72,7 @@ const AllPetsPage = ({ pets }) => {
       </div>
       <div className="grid  md:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:gap-4 gap-8 p-4  sm:p-0">
         {filterPets.map((pet) => (
-          <PetCard key={pet._id} pet={pet} />
+          <PetCard key={pet._id} pet={pet} status={pet.status} />
         ))}
       </div>
     </div>

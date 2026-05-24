@@ -10,11 +10,16 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   // Google Sign In
   const handleGoogleSignIn = async () => {
     const data = await authClient.signIn.social({
@@ -60,6 +65,19 @@ const LoginPage = () => {
             Enter your email below to login to your account
           </p>{" "}
         </div>
+        <p onClick={() => setIsClicked(!isClicked)}>
+          {isClicked === true
+            ? `Email :admin123@gmail.com Password:Admin123`
+            : "Check Admin Email or Password click it."}
+        </p>
+        {/* {user?.email === "admin123@gmail.com" ? (
+          ""
+        ) : (
+          <div>
+            <p>Admin Email : admin123@gmail.com</p>
+            <p>Admin Password : Admin123</p>
+          </div>
+        )} */}
         <TextField
           isRequired
           name="email"

@@ -50,7 +50,7 @@ const PetDetaisPage = async ({ params }) => {
 
       <div className="grid md:grid-cols-2 gap-6 md:gap-10">
         {/* LEFT SIDE */}
-        <div className="w-[400] sm:w-[450] mx-auto">
+        <div className="w-[350] sm:w-[450] mx-auto">
           <Image
             src={imageUrl}
             alt={PetName}

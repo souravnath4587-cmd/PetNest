@@ -1,6 +1,6 @@
 const PetOwnerPage = () => {
   return (
-    <div className="max-w-md mx-auto mt-6 p-4 h-40 border border-red-200 bg-red-50 rounded-xl shadow-sm">
+    <div className="md:max-w-md max-w-sm mx-auto mt-6 p-4 h-40 border border-red-200 bg-red-50 rounded-xl shadow-sm">
       <h2 className="text-red-600 font-semibold text-lg">Access Restricted</h2>
 
       <p className="text-gray-700 mt-2 text-sm leading-relaxed">

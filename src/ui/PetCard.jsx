@@ -7,7 +7,9 @@ import { useRouter } from "next/navigation";
 import { MdLocationOn } from "react-icons/md";
 
 const PetCard = ({ pet }) => {
-  const { _id, PetName, location, age, gender, imageUrl } = pet;
+  const { _id, PetName, location, age, gender, imageUrl, status } = pet;
+  console.log(status);
+
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const router = useRouter();
@@ -45,11 +47,11 @@ const PetCard = ({ pet }) => {
           <Link href={`/all-pets/${_id}?name=${PetName}`}>View Details</Link>
         </Button>
         <Button
-          className="rounded-none w-full "
+          className="rounded-none w-full"
           onClick={() => handleAdopt(_id)}
           variant="danger-soft"
         >
-          Adopt Now
+          {status === "approved" ? "Adopted" : "Adopt Now"}
         </Button>
       </div>
     </div>
