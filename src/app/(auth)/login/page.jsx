@@ -38,7 +38,7 @@ const LoginPage = () => {
       email: email,
       password: password,
       rememberMe: true,
-      callbackURL: "/all-pets/",
+      callbackURL: "/",
     });
 
     if (!res) {
