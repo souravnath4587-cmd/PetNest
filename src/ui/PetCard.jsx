@@ -1,11 +1,24 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { MdLocationOn } from "react-icons/md";
 
 const PetCard = ({ pet }) => {
   const { _id, PetName, location, age, gender, imageUrl } = pet;
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  const router = useRouter();
+  const handleAdopt = (id) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    } else {
+      router.push(`/all-pets/${id}`);
+    }
+  };
 
   return (
     <div className="shadow-2xl rounded-t-xl  border-2">
@@ -31,10 +44,12 @@ const PetCard = ({ pet }) => {
         <Button className="rounded-none w-full bg-[#c19468]" variant="outline">
           <Link href={`/all-pets/${_id}`}>Pet Details</Link>
         </Button>
-        <Button className="rounded-none w-full " variant="danger-soft">
-          {/* <Link href={`/all-pets/${_id}`}> */}
+        <Button
+          className="rounded-none w-full "
+          onClick={() => handleAdopt(_id)}
+          variant="danger-soft"
+        >
           Adopt Now
-          {/* </Link> */}
         </Button>
       </div>
     </div>

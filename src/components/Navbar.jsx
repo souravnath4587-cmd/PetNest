@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import logo from "../assets/petNestLogo.png";
 import Image from "next/image";
+import { Button } from "@heroui/react";
 
 const Navbar = () => {
   const { data: session } = authClient.useSession();
@@ -91,10 +92,15 @@ const Navbar = () => {
               <li>
                 <Link href="/all-pets">All Pets </Link>
               </li>
-
-              <li>
-                <Link href="/login">Login</Link>
-              </li>
+              {user ? (
+                <li>
+                  <Button onClick={() => authClient.signOut()}>Log Out</Button>
+                </li>
+              ) : (
+                <li>
+                  <Link href="/login">Login</Link>
+                </li>
+              )}
             </ul>
           </div>
         )}
